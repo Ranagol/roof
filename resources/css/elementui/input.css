@@ -1,0 +1,53 @@
+/* targeting all el-input_inner classes, aka all autocomplete inputs */
+.el-input__inner{
+    background-image:none;
+    -webkit-box-sizing:border-box;
+    outline:0;
+    -webkit-transition:border-color .2s cubic-bezier(.645, .045, .355, 1);
+    height: auto;
+    line-height: inherit;
+    padding: 12px 20px 12px 40px;
+    font-size: 15px;
+    color: #333f57;
+    border: 1px solid rgba(128, 137, 150, 0.3);
+    font-weight: 500;
+    transition: all 0.3s;
+    display: block;
+    width: 100%;
+    background-color: #fff;
+    background-clip: padding-box;
+    border-radius: .25rem;
+    outline-offset: -2px;
+    -webkit-appearance: none;
+    overflow: visible;
+    margin: 0;
+    box-sizing: border-box;
+
+
+}
+
+/* changes the color of the input field placeholders (makes the AutoComplete component placeholder color = to
+other simple input field placeholders */
+input::-webkit-input-placeholder { color: gray!important; }
+
+input {
+    padding: .375rem .75rem!important;
+    color: #808996!important;
+    font-size: 16px!important;
+    font-weight: 500!important;
+    line-height: 26px!important;
+}
+/* targeting autocomplete fields only in the HOME PAGE*/
+.home-page .el-autocomplete {
+	display: block!important;
+	width: 100%!important;
+	background-clip: padding-box!important;
+
+}
+
+/* targeting autocomplete fields only in the ADLIST PAGE*/
+.ad-list-page .el-autocomplete {
+	display: block!important;
+	width: 100%!important;
+	background-clip: padding-box!important;
+}

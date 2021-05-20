@@ -1,0 +1,28 @@
+/*@import 'tailwindcss/base';*/
+/*@import 'tailwindcss/components';*/
+/*@import 'tailwindcss/utilities';*/
+
+
+#andor-navbar {
+    background-color: red;
+}
+
+.ad-list-grey-text {
+    font-size: 16px;
+    color: #808996;
+    font-weight: 500;
+    line-height: 26px;
+}
+
+.image-setup{
+    background-size: cover;
+}
+
+/*.ad-list-header-background {*/
+/*    background-image: url("public/imagesResources/city_images/0.jpeg");*/
+/*    background-size: cover;*/
+/*}*/
+
+
+
+
