@@ -1,12 +1,17 @@
 /node_modules
 /public/hot
 /public/storage
+
+
 /public/css
 /public/fonts
 /public/images
 /public/imagesResources
 /public/js
 /public/vendor
+
+
+
 /storage/*.key
 /vendor
 /.docker
