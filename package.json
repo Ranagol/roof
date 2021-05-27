@@ -1,6 +1,11 @@
 {
     "private": true,
+    "engines": {
+        "node": "16.x",
+        "npm": "7.x"
+    },
     "scripts": {
+        "heroku-postbuild": "npm run production",
         "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
