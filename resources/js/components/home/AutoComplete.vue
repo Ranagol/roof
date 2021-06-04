@@ -46,7 +46,10 @@ export default {
 	methods: {
 		async querySearch (queryString, callbackFunction) {
 			const {data} = await Ad.getCityOrLocationForAutocomplete(this.name, queryString);
-			callbackFunction(data);
+			console.log('data', data);//itt altam meg es a problema ott van, hogy az autocomplete kereses nem mukodik**********
+			let dataCapitalized = this.capitalizeSuggestions(data);
+			console.log('dataCapitalized', dataCapitalized);
+			callbackFunction(dataCapitalized);
 		},
 
 		handleSelect (item) {
@@ -55,6 +58,20 @@ export default {
 
 		handleManualTyping (item) {
 			this.$emit('input', item);
+		},
+
+		capitalizeSuggestions (data) {
+			let dataCapitalized = [];
+			_.forEach(data, function(object){
+				if(!_.isEmpty(object.city)){
+					object.city = _.startCase(object.city);
+				}
+				if(!_.isEmpty(object.location_in_city)){
+					object.location_in_city = _.startCase(object.location_in_city);
+				}
+				dataCapitalized.push(object);
+			});
+			return dataCapitalized;
 		}
 	}
 };

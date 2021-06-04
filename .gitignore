@@ -17,6 +17,8 @@
 /.docker
 .env
 .env.backup
+.env.pgsql-template
+.env.mysql-template
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
