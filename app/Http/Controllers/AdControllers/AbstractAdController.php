@@ -52,6 +52,7 @@ abstract class AbstractAdController extends Controller
 
 		//FILTERING THE ADS
 		$filter = new Filter($request->all());
+		$filter = $this->deCapitalizeCityAndLocation($request, $filter);
 		unset($filter['name'], $filter['created_at'], $filter['updated_at']);
 
 		if (Auth::user()) {
@@ -65,9 +66,8 @@ abstract class AbstractAdController extends Controller
 			}
 		}
 
-		$sortByThis = $request->sortByThis;
-
 		//0-GETTING THE ADS FOR THE RESPONSE
+		$sortByThis = $request->sortByThis;
 		$ads = $ads->filter($filter)
 		->orderAds($sortByThis)
 		->paginate(10);
@@ -90,5 +90,27 @@ abstract class AbstractAdController extends Controller
 			)
 		);
 
+	}
+
+	/**
+	 * City and location are in lowercase in the db. Example: Novi Sad.
+	 * City and location are uppercase in the request.
+	 * So, if we want to perform a filtering or search in the db, with the search terms
+	 * city and location, then we must transform them to be lowercase.
+	 *
+	 * @param Request $request
+	 * @param Filter $filter
+	 * @return Filter
+	 */
+	private function deCapitalizeCityAndLocation(Request $request, Filter $filter):Filter
+	{
+		if(isset($request->city)) {
+			$filter->city =  mb_strtolower($request->city);
+		}
+		if(isset($request->location_in_city)) {
+			$filter->location_in_city =  mb_strtolower($request->location_in_city);
+		}
+
+		return $filter;
 	}
 }
