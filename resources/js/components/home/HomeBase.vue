@@ -44,7 +44,9 @@ export default {
 	},
 	computed: {
 		reactiveFilterCounting(){
-			if (this.filters.length > 0) {
+			if(this.filters === null) {
+				return false;
+			} else if (this.filters.length > 0) {
 				return true;
 			} 
 			return false;
