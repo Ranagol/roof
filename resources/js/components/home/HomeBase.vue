@@ -8,6 +8,7 @@
 
 		<!--        AD LIST LOOPER-->
 		<home-ad-list-looper
+			v-if="reactiveFilterCounting"
 			:filters="filters"
 			:filter-count="filterCount"
 		/>
@@ -18,7 +19,7 @@
 <script>
 import HomeSearchBar from './HomeSearchBar';
 import HomeAdListLooper from './HomeAdListLooper';
-
+import _ from 'lodash';
 export default {
 	name: 'HomeBase',
 	components: {
@@ -34,11 +35,19 @@ export default {
 			}
 		},
 		filterCount: {
-			type: Object,
+			type: [Object, Array],
 			required: false,
 			default () {
 				return {};
 			}
+		}
+	},
+	computed: {
+		reactiveFilterCounting(){
+			if (this.filters.length > 0) {
+				return true;
+			} 
+			return false;
 		}
 	},
 	methods: {
@@ -52,7 +61,12 @@ export default {
 
 			window.location.href = url;
 		}
-	}
+	},
+	mounted() {
+		console.log('Mounted activated');
+		// console.dir(this.filters);
+		// console.log(this.filters.length);
+	},
 };
 </script>
 

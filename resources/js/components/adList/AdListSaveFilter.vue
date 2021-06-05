@@ -17,7 +17,7 @@
 			>
 				<div>Please correct the following error(s):</div>
 				<ul>
-					<li v-for="error in errors">
+					<li v-for="(error, i) in errors" :key="i">
 						{{ error }}
 					</li>
 				</ul>
@@ -94,7 +94,7 @@ export default {
 						  this.$notify({
 							  type: 'success',
 							  title: 'Ad list saved',
-							  message: `Ad list with name ${this.filterName} has been saved.`
+							  message: `Ad list with name ${this.filterName} has been saved. You can check your new ad list on the Home page.`
 						  });
 						  this.show = false;
 					  })

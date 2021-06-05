@@ -1,4 +1,4 @@
-<section class="footer-area bg-gradient-gray padding-top-30px padding-bottom-30px position-relative">
+<section class="footer-area bg-gradient-gray mt-5 padding-top-30px padding-bottom-30px position-relative">
     <div class="container">
         <div class="row pt-4 align-items-center footer-action-wrap">
             <div class="col-lg-4">
@@ -23,8 +23,7 @@
                 <div class="copy-right d-flex align-items-center justify-content-between">
                     <p class="copy__desc">
                         &copy; Copyright Devione 2021 Made with
-                        <i class="far fa-heart"></i> by
-                        <a href="https://www.devione.com/">Devione</a>
+                        <a href="https://www.devione.com/">Andor</a>
                     </p>
                 </div><!-- end copy-right -->
             </div><!-- end col-lg-12 -->

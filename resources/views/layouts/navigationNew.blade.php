@@ -1,7 +1,8 @@
 <nav class="navbar navbar-expand-md" style="background-color: #495057;">
     <div class="container">
         <a class="navbar-brand" href="{{ url('/') }}">
-            <img src="/images/logo-white.png" alt="andor-logo">
+            {{-- <img src="/images/logo-white.png" alt="andor-logo"> --}}
+            <i class="fas fa-home fa-2x text-white mr-3 pr-3"></i>
         </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
             <span class="navbar-toggler-icon"></span>
@@ -10,7 +11,15 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
             <ul class="navbar-nav mr-auto">
-
+                <li class="nav-item">
+                    <a 
+                        class="nav-link text-white" 
+                        href="/ad-list/non-processed"
+                    >
+                        <i class="fas fa-search"></i> 
+                         ads
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->

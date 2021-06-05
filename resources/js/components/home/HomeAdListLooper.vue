@@ -113,7 +113,7 @@ export default {
 			}
 		},
 		filterCount: {
-			type: Object,
+			type: [Object, Array],
 			required: false,
 			default () {
 				return {};

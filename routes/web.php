@@ -22,9 +22,6 @@ Route::get('/', 'App\Http\Controllers\\AdControllers\AdController@welcomePage');
 //Guests can see all ads, under the unprocessed url, but can't see the saved ad lists
 Route::get('/ad-list/non-processed', 'App\Http\Controllers\AdControllers\NonProcessedAdController@index');
 
-//gets all cities from db for the autocomplete
-//Route::get('/cities','App\Http\Controllers\AdControllers\AdController@getCities');
-
 //gets cities or locations for the autocomplete Vue component. The {type} here is either city or location.
 Route::get('/autocomplete/ad/{type}', GetAdsCityOrLocationController::class);
 
