@@ -188,14 +188,13 @@ class OglasiDataExtractor
         $locationInCityExtracted = [];
         $allMixedData = $this->extractMixedDataFromCrawler();
         $cityAndLocation = $this->removeDumpFromData($allMixedData);
-        //Sometimes there is only city, and there is no location in the city. So we have to make 2 cases here.
         foreach ($cityAndLocation as $subarray) {
             if (count($subarray) === 1 ) {
-                $cityExtracted[] = $subarray[0];
+                $cityExtracted[] = mb_strtolower($subarray[0]);
                 $locationInCityExtracted[] = 'No location data for this ad.';
             } elseif (count($subarray) === 2 ) {
-                $cityExtracted[] = $subarray[0];
-                $locationInCityExtracted[] = $subarray[1];
+                $cityExtracted[] = mb_strtolower($subarray[0]);
+                $locationInCityExtracted[] = mb_strtolower($subarray[1]);
             } else {
 				throw new DataExtractionException('locations');
             }

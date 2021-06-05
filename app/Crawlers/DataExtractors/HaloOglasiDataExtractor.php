@@ -183,8 +183,10 @@ class HaloOglasiDataExtractor
 
         if($locations) {
             foreach ($locations as $location) {
-                $cityExtracted[] = $this->removeSpaces($location->childNodes[0]->textContent);
-                $locationInCityExtracted[] = $location->childNodes[1]->textContent . ' / ' . $location->childNodes[2]->textContent;
+                $temporaryCity = $this->removeSpaces($location->childNodes[0]->textContent);
+				$cityExtracted[] = mb_strtolower($temporaryCity);
+				$temporaryLocation = $location->childNodes[1]->textContent . ' / ' . $location->childNodes[2]->textContent;
+                $locationInCityExtracted[] = mb_strtolower($temporaryLocation);
             }
 
             return [$cityExtracted, $locationInCityExtracted];

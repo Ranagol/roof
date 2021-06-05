@@ -30,7 +30,7 @@
 						<h4 class="card-title">
 							<!-- note the "``" combination. this is a must.-->
 							<a :href="`/ads/${ad.id}`">
-								Flat in {{ ad.city }},
+								Flat in {{ ad.city | capitalize }},
 								for {{ ad.price | formatNumber }} &euro;
 							</a>
 						</h4>
@@ -46,7 +46,7 @@
 						<!--                        CITY AND LOCATION -->
 						<p class="card-sub">
 							<i class="fas fa-map-marker-alt" />
-							{{ ad.city }}, {{ ad.location_in_city }}
+							{{ ad.city | capitalize  }}, {{ ad.location_in_city | capitalize  }}
 						</p>
 
 						<!--                        ROOMS, FLOOR, SURFACE -->
@@ -125,6 +125,7 @@ import DismissButton from '../buttons/DismissButton';
 import DuplicateButton from '../buttons/DuplicateButton';
 import NotDuplicateButton from '../buttons/NotDuplicateButton';
 import moment from 'moment';
+import _ from 'lodash';
 
 export default {
 	name: 'Ad',
@@ -146,6 +147,9 @@ export default {
 		// here we want to format date from 22-03-2021 to 22.apr.2012
 		formatDate (value) {
 			return moment(value).format('Do MMM YYYY');
+		},
+		capitalize (value) {
+			return _.startCase(value);
 		}
 	},
 	inject: ['isAuthenticated'],

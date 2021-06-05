@@ -4,9 +4,9 @@ export default class Ad {
 	 * Ide pedig teszunk egy magyarazatot hogy ez mit csinal
 	 *
 	 * @param adType {string} What type of ads we are getting.
-	 * @param filters {Object} These are the filters set by the user.
-	 * @param sortByThis
-	 * @param page
+	 * @param filters {Object} These are the filters set by the user. example: city=Belgrade, minPrice=10000, location=Podbara...
+	 * @param sortByThis {string} example: price.asc
+	 * @param page {string} Example: 1
 	 *
 	 * @returns {Promise<AxiosResponse<any>>}
 	 */
@@ -15,9 +15,9 @@ export default class Ad {
 			`/ad-list/${adType}`,
 			{
 				params: {
-					...filters, //example: city=Belgrade, minPrice=10000, location=Podbara...
-					sortByThis, //example: price.asc
-					page//example: 1
+					...filters,
+					sortByThis,
+					page
 				}
 			}
 		);

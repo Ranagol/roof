@@ -55,7 +55,7 @@ export default {
 
 		handleManualTyping (item) {
 			this.$emit('input', item);
-		}
+		},
 	}
 };
 </script>
