@@ -58,3 +58,6 @@ Vue.component('ad-list-base', require('./components/adList/AdListBase.vue').defa
 
 // AD-DETAIL
 Vue.component('ad-detail-base', require('./components/adDetails/AdDetailBase.vue').default);
+
+//YOUR-STUFF
+Vue.component('your-stuff-base', require('./components/yourStuff/YourStuffBase.vue').default);

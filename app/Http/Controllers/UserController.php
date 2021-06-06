@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Ad;
+use Illuminate\Support\Facades\Auth;
+
 
 class UserController extends Controller
 {
@@ -43,9 +46,29 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
-        //
+        if (Auth::user()) {
+			$filters = Auth::user()->getSavedFilters();
+			$ad = new Ad();
+			$filterCount = [];
+			foreach ($filters as $filter) {
+				$filterCount[$filter->id] = $ad
+					->notProcessedAds(Auth::user())
+					->getCountForFilter($filter);
+			}
+		} else {
+			$filters     = NULL;
+			$filterCount = NULL;
+		}
+
+		return view(
+			'ads.yourStuff.yourStuff',
+			compact(
+				'filters',
+				'filterCount'
+			)
+		);
     }
 
     /**

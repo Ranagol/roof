@@ -5,12 +5,17 @@
 		:style="{'background-image': `url(/images/city_images/${ number }.jpeg)`}"
 	>
 		<div class="d-flex flex-row justify-content-between">
-			<div class="countBadge">{{ filterCount }}</div>
-			<i
-				id="delete"
-				class="far fa-trash-alt mt-2 mr-2 mb-1 pb-2"
-				@click="deleteList"
-			></i>
+			<el-tooltip class="item" effect="light" content="Number of your new ads" placement="top">
+				<div class="countBadge">{{ filterCount }}</div>
+			</el-tooltip>
+
+			<el-tooltip class="item" effect="light" content="Delete this ad list" placement="top">
+				<i
+					id="delete"
+					class="far fa-trash-alt mt-2 mr-2 mb-1 pb-2"
+					@click="deleteList"
+				></i>
+			</el-tooltip>
 		</div>
 		<div>
 			<a :href="`ad-list/non-processed/${ filter.id }`">

@@ -40,5 +40,16 @@ export default class Ad {
 			}
 		);
 	}
+
+	static getPossibleDuplicates (adId) {
+		return window.axios.get(
+			'/possible-duplicates',
+			{
+				params: {
+					adId,
+				}
+			}
+		);
+	}
 }
 

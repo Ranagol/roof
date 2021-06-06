@@ -1,12 +1,14 @@
 <template>
 	<div class="col">
-		<button
-			class="btn btn-outline-success btn-sm"
-			style="width: 7rem"
-			@click="notDuplicate"
-		>
-			Not duplicate
-		</button>
+		<el-tooltip class="item" effect="light" content="Removes ad from duplicates." placement="bottom">
+			<button
+				class="btn btn-outline-success btn-sm"
+				style="width: 7rem"
+				@click="notDuplicate"
+			>
+				Not duplicate
+			</button>
+		</el-tooltip>
 	</div>
 </template>
 

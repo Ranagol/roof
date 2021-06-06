@@ -249,11 +249,15 @@ class Ad extends Model
 		$filter->max_rooms = $this->number_of_rooms;
 		$filter->min_floor = $this->floor;
 		$filter->max_floor = $this->floor;
-		$filter->city = $this->cleanString($this->city);
+		$filter->city = $this->city;
 		$query = self::where('id', '!=', $this->id);
+		$possibleDuplicateAds = $this->scopeFilter($query, $filter);
 
-		return $this->scopeFilter($query, $filter);
+		return $possibleDuplicateAds;
 	}
+
+
+	
 
 	/**
 	 * scopeRemoveDismissedAds removes the dismissed ads from the $query that was received as an argument.

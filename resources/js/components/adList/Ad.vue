@@ -27,13 +27,17 @@
 						>
 
 						<!--                        TITLE -->
-						<h4 class="card-title">
-							<!-- note the "``" combination. this is a must.-->
-							<a :href="`/ads/${ad.id}`">
-								Flat in {{ ad.city | capitalize }},
-								for {{ ad.price | formatNumber }} &euro;
-							</a>
-						</h4>
+						
+							<h4 class="card-title">
+								<!-- note the "``" combination. this is a must.-->
+								<el-tooltip class="item" effect="light" content="See ad details." placement="right">
+									<a :href="`/ads/${ad.id}`">
+										Flat in {{ ad.city | capitalize }},
+										for {{ ad.price | formatNumber }} &euro;
+									</a>
+								</el-tooltip>
+							</h4>
+						
 
 						<!--                        PRICES -->
 						<p class="card-sub">
@@ -85,18 +89,30 @@
 							<li>Advertiser: {{ ad.advertiser }}</li>
 						</ul>
 
+						<!--                        POSSIBLE DUPLICATES -->
+						<!-- <ul class="info-list" >
+							<li>
+								<a :href="`/ads/${ad.id}`">
+									<strong class="duplicate-color">This ad has possible duplicates.</strong>
+								</a>
+							</li>
+						</ul> -->
+
 						<!--                        STAR AND DISMISS BUTTONS -->
-						<div
-							v-if="!showDuplicateButtons && isAuthenticated && !isDetailsPage"
-							class="d-flex flex-row pt-2 justify-content-around"
-						>
-							<star-button
-								@clicked="starredAd"
-							/>
-							<dismiss-button
-								@dismiss="dismiss"
-							/>
+						<div v-loading="loading">
+							<div
+								v-if="!showDuplicateButtons && isAuthenticated && !isDetailsPage"
+								class="d-flex flex-row pt-2 justify-content-around"
+							>
+								<star-button
+									@clicked="starredAd"
+								/>
+								<dismiss-button
+									@dismiss="dismiss"
+								/>
+							</div>
 						</div>
+						
 
 						<!--                        DUPLICATE/NOT DUPLICATE BUTTONS -->
 						<div
@@ -126,7 +142,7 @@ import DuplicateButton from '../buttons/DuplicateButton';
 import NotDuplicateButton from '../buttons/NotDuplicateButton';
 import moment from 'moment';
 import _ from 'lodash';
-
+import Ad from '../../models/Ad.js';
 export default {
 	name: 'Ad',
 	components: {
@@ -179,7 +195,9 @@ export default {
 	data () {
 		return {
 			oglasiLogoPath: '/images/logos/oglasi-logo.png',
-			haloOglasiLogoPath: '/images/logos/halooglasi-logo.png'
+			haloOglasiLogoPath: '/images/logos/halooglasi-logo.png',
+			hasDuplicates: false,
+			loading: false,
 		};
 	},
 	computed: {
@@ -189,10 +207,14 @@ export default {
 	},
 	methods: {
 		starredAd () {
+			this.loading = true;
 			this.$emit('ad-starred', this.ad);
+			this.loading = false;
 		},
 		dismiss () {
+			this.loading = true;
 			this.$emit('dismiss', this.ad);
+			this.loading = false;
 		},
 		displayLogo (adSource) {
 			if (adSource === 'www.halooglasi.rs') {
@@ -201,7 +223,18 @@ export default {
 
 			return this.oglasiLogoPath;
 		},
-	}
+		async checkForDuplicates() {
+			try {
+				const {data} = await Ad.getPossibleDuplicates(this.ad.id);
+				console.log('checkForDuplicates() executed, these are the duplicates: ', data);
+			} catch (error) {
+				console.dir(error);
+			}
+		}
+	},
+	mounted() {
+		// this.checkForDuplicates();
+	},
 };
 
 </script>
@@ -214,5 +247,14 @@ export default {
 
 #ad-padding {
 	padding: 5px 20px 5px 20px;
+}
+
+.duplicate-color {
+	color: red;
+}
+
+.duplicate-color:hover {
+	color: red;
+	text-decoration: underline;
 }
 </style>

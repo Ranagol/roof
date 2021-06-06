@@ -13,17 +13,18 @@
                                 <h2 class="sec__title text-white font-size-40 mb-0 mt-5 pt-5 header-width">
                                     Ad list <span v-if="savedFilter"> {{ savedFilter.name }}</span>
                                 </h2>
-
-<!--                            AD TYPE FILTERS ON THE TOP (STARRED, DISMISSED...)-->
-                                <ad-list-ad-type-filter
-                                    v-if="isAuthenticated"
-                                    class="mt-3"
-                                    :saved-filter-id="savedFilterId"
-                                    :ad-type-for-url="adTypeForUrl"
-                                />
                             </div>
                         </div><!-- end breadcrumb-content -->
                     </div><!-- end col-lg-12 -->
+
+<!--           AD TYPE FILTERS ON THE TOP (STARRED, DISMISSED...)-->
+					<ad-list-ad-type-filter
+						v-if="isAuthenticated"
+						class="mt-3"
+						:saved-filter-id="savedFilterId"
+						:ad-type-for-url="adTypeForUrl"
+					/>
+
                 </div><!-- end row -->
             </div><!-- end container -->
         </section><!-- end breadcrumb-area -->

@@ -2,18 +2,10 @@
 
 @section('content')
 
-    <home-base
-        :filters=" {{ json_encode($filters) }} "
+    <your-stuff-base
+        :filters=" {{ json_encode($filters) }}"
         :filter-count="{{ json_encode($filterCount) }}"
     >
-    </home-base>
+    </your-stuff-base>
 
 @endsection
-
-
-
-
-
-
-
-

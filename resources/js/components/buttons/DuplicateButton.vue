@@ -1,12 +1,14 @@
 <template>
 	<div class="col">
-		<button
-			style="width: 7rem"
-			class="btn btn-outline-danger btn-sm"
-			@click="isDuplicate"
-		>
-			Duplicate
-		</button>
+		<el-tooltip class="item" effect="light" content="Will permamently dissmiss duplicate." placement="bottom">
+			<button
+				style="width: 7rem"
+				class="btn btn-outline-danger btn-sm"
+				@click="isDuplicate"
+			>
+				Duplicate
+			</button>
+		</el-tooltip>
 	</div>
 </template>
 

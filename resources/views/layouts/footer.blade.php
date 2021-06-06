@@ -22,7 +22,7 @@
             <div class="col-lg-12">
                 <div class="copy-right d-flex align-items-center justify-content-between">
                     <p class="copy__desc">
-                        &copy; Copyright Devione 2021 Made with
+                        &copy; Copyright Andor 2021 Made by
                         <a href="https://www.devione.com/">Andor</a>
                     </p>
                 </div><!-- end copy-right -->

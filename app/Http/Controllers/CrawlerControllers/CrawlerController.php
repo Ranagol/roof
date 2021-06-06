@@ -25,7 +25,7 @@ abstract class CrawlerController
      *
      * @throws \Exception Couldn't save the ads.
      */
-    public function __invoke()//TODO, OK lepesrol lepesre kell magyarazat... Nem ertem mi tortenik, mikor es miert.
+    public function __invoke()
     {
         $ads = $this->repository->getAds();
         $this->repository->saveAds($ads);

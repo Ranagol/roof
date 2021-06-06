@@ -25,8 +25,8 @@ Route::get('/ad-list/non-processed', 'App\Http\Controllers\AdControllers\NonProc
 //gets cities or locations for the autocomplete Vue component. The {type} here is either city or location.
 Route::get('/autocomplete/ad/{type}', GetAdsCityOrLocationController::class);
 
-//gets all locations from db for the autocomplete
-//Route::get('/locations','App\Http\Controllers\AdControllers\AdController@getLocations');
+//checks for possible duplicate ad
+Route::get('/possible-duplicates', 'App\Http\Controllers\AdControllers\AdController@getPossibleDuplicates');
 
 //GROUP OF PROTECTED ROUTES
 Route::middleware(['auth'])->group(function () {
@@ -56,6 +56,9 @@ Route::middleware(['auth'])->group(function () {
 
     //adDetails page loader, will SHOW one ad detail page
     Route::get('/ads/{id}', 'App\Http\Controllers\AdControllers\AdController@showAd');
+
+    //your-stuff page loader, will display saved ad lists and some statistics
+    Route::get('/your-stuff', 'App\Http\Controllers\UserController@show');
 });
 
 //DASHBOARD

@@ -1,12 +1,14 @@
 <template>
 	<div class="col">
-		<button
-			@click="starThisAd"
-			style="width: 7rem"
-			class="btn btn-outline-info btn-sm"
-		>
-			<i class="far fa-star"></i>
-		</button>
+		<el-tooltip class="item" effect="light" content="Star this ad" placement="bottom">
+			<button
+				@click="starThisAd"
+				style="width: 7rem"
+				class="btn btn-outline-info btn-sm"
+			>
+				<i class="far fa-star"></i>
+			</button>
+		</el-tooltip>
 	</div>
 </template>
 

@@ -10,7 +10,6 @@ use App\Repository\Interfaces\MyTestRepositoryInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -172,4 +171,20 @@ class AdController extends AbstractAdController
 	{
 		$this->repository->echoSomethingFromInterface();
 	}
+
+	// public function getPossibleDuplicates(Request $request){
+	// 	// print_r('getPossibleDuplicates was activated'); die;
+	// 	$user = Auth::user();
+	// 	$adId = $request->adId;
+	// 	// print_r($adId); die;
+	// 	$ad = Ad::findOrFail($adId);
+	// 	// print_r($ad); die;
+	// 	$possibleDuplicateAds = $ad->findDuplicates($user)
+	// 		->removeDismissedAds($user)
+	// 		->removeConfirmedDuplicates($user)
+	// 		->get();
+	// 	print_r($possibleDuplicateAds); die;
+
+	// 	return response()->json($possibleDuplicateAds);
+	// }
 }

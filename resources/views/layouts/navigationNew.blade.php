@@ -20,6 +20,15 @@
                          ads
                     </a>
                 </li>
+                <li class="nav-item ml-4">
+                    <a 
+                        class="nav-link text-white" 
+                        href="/your-stuff"
+                    >
+                        <i class="fas fa-chart-pie"></i> 
+                         your stuff
+                    </a>
+                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
