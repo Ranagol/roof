@@ -49,24 +49,37 @@ class UserController extends Controller
     public function show()
     {
         if (Auth::user()) {
-			$filters = Auth::user()->getSavedFilters();
+            $user = Auth::user();
+			$filters = $user->getSavedFilters();
 			$ad = new Ad();
 			$filterCount = [];
 			foreach ($filters as $filter) {
 				$filterCount[$filter->id] = $ad
-					->notProcessedAds(Auth::user())
+					->notProcessedAds($user)
 					->getCountForFilter($filter);
 			}
+            $dismissedAds = $user->dismissedAds->count();
+            $starredAds = $user->starredAds->count();
+            $userData = [
+                'name' => $user->name,
+                'email' => $user->email,
+            ];
 		} else {
-			$filters     = NULL;
-			$filterCount = NULL;
+			$filters = null;
+			$filterCount = null;
+            $dismissedAds = null;
+            $starredAds = null;
+            $userData = null;
 		}
 
 		return view(
 			'ads.yourStuff.yourStuff',
 			compact(
 				'filters',
-				'filterCount'
+				'filterCount',
+                'dismissedAds',
+                'starredAds',
+                'userData',
 			)
 		);
     }

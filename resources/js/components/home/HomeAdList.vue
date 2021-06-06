@@ -5,7 +5,7 @@
 		:style="{'background-image': `url(/images/city_images/${ number }.jpeg)`}"
 	>
 		<div class="d-flex flex-row justify-content-between">
-			<el-tooltip class="item" effect="light" content="Number of your new ads" placement="top">
+			<el-tooltip class="item" effect="light" content="Number of your new ads in this list" placement="top">
 				<div class="countBadge">{{ filterCount }}</div>
 			</el-tooltip>
 
