@@ -22,7 +22,8 @@ class Ad extends Model
 
 	/**
 	 * Appends 'has_duplicates' to the ad object, like as if it has a has_
-	 * duplicates column in the db table. 
+	 * duplicates column in the db table. The value of the has_duplicate 
+	 * will be determined by the getHasDuplicatesAttribute() accessor below.
 	 *
 	 * @var array
 	 */
@@ -188,6 +189,22 @@ class Ad extends Model
 				return $query->where('price_by_surface', '<=', $maxPriceBySurface);
 			});
 	}
+
+
+	public function scopeFilter2(Builder $query, Filter $filter){
+		
+		foreach ($filter as $filterKey => $filterValue) {
+			query->where('$filterKey', 'LIKE', '%' . $filterValue . '%');
+		}
+
+		return $query;
+		
+		
+	}
+
+	
+
+
 
 	/**
 	 * ScopeFilterByFilterId will find the users saved ad list with the help of the filter / ad list id number.
