@@ -90,13 +90,16 @@
 						</ul>
 
 						<!--                        POSSIBLE DUPLICATES -->
-						<!-- <ul class="info-list" >
+						<ul class="info-list" v-if="ad.has_duplicates">
 							<li>
 								<a :href="`/ads/${ad.id}`">
-									<strong class="duplicate-color">This ad has possible duplicates.</strong>
+									<strong class="duplicate-color">
+										<i class="fas fa-exclamation-circle"></i>
+										This ad has possible duplicates.Resolve here.
+									</strong>
 								</a>
 							</li>
-						</ul> -->
+						</ul>
 
 						<!--                        STAR AND DISMISS BUTTONS -->
 						<div v-loading="loading">
@@ -196,7 +199,6 @@ export default {
 		return {
 			oglasiLogoPath: '/images/logos/oglasi-logo.png',
 			haloOglasiLogoPath: '/images/logos/halooglasi-logo.png',
-			hasDuplicates: false,
 			loading: false,
 		};
 	},

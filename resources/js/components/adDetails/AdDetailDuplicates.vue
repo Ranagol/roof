@@ -1,12 +1,17 @@
 <template>
 	<div>
 		<hr>
-		<h2
-			v-if="duplicates !== undefined && duplicates.length > 0"
-			class="sec__title"
-		>
-			Possible duplicates
-		</h2>
+		<div v-if="duplicates !== undefined && duplicates.length > 0">
+			<h2 class="sec__title">Possible duplicates</h2>
+			<p>It seems that there are some possbile ad duplicates for this ad on the top. 
+				Please confirm if these ads below are 
+				duplicates with the ad on the top. If so, click on the 'Duplicate' button, and the now confirmed
+				duplicate ad will not be displayed ever again. If this is just a similar, but different ad, please 
+				click on the 'Not duplicate' button. This way the app will not display it again as a possible
+				duplicate.
+			</p>
+		</div>
+		
 		<div v-if="duplicates !== undefined && duplicates.length > 0">
 			<ad
 				v-for="(ad) in duplicates"

@@ -19,6 +19,36 @@ class Ad extends Model
 	 */
 	protected $guarded = ['id'];
 
+
+	/**
+	 * Appends 'has_duplicates' to the ad object, like as if it has a has_
+	 * duplicates column in the db table. 
+	 *
+	 * @var array
+	 */
+	protected $appends = ['has_duplicates'];
+
+
+	/**
+	 * For every ad, we need a boolean, if this ad has possible duplicates.
+	 * Example: every ad will have something like this: has_duplicates = true;
+	 * Just like as if in the ads table we had a has_duplicates column (that we don't have actually.)
+	 * This is determined by $this->findDuplicates();
+	 *
+	 * @return boolean
+	 */
+	public function getHasDuplicatesAttribute(): bool
+	{
+		$user = Auth::user();
+
+		return $this
+			->findDuplicates($user)
+			->removeDismissedAds($user)
+			->removeConfirmedDuplicates($user)
+			->count() > 0;
+	}
+
+
 	/**
 	 * users is just a simple relationship.
 	 *
@@ -224,6 +254,12 @@ class Ad extends Model
 		return $query;
 	}
 
+
+
+	/** DUPLICATE ADS RELATED FUNCTIONS */
+
+	
+
 	/**
 	 *these will be the criteria to find possible (not yet confirmed) duplicates, based on:
 	 * surface, nr of rooms, floor, city.
@@ -255,9 +291,6 @@ class Ad extends Model
 
 		return $possibleDuplicateAds;
 	}
-
-
-	
 
 	/**
 	 * scopeRemoveDismissedAds removes the dismissed ads from the $query that was received as an argument.
@@ -299,21 +332,4 @@ class Ad extends Model
 
 		return $query->whereNotIn('id', $arrayOfIds);
 	}
-
-	/**
-	 * cleanString removes two unneeded spaces from the right side of the string.
-	 *
-	 * @param $string
-	 *
-	 * @return string
-	 */
-	private function cleanString($string): string
-	{
-		$arrayOfLetters = str_split($string);
-		$countLetters   = count($arrayOfLetters);
-		unset($arrayOfLetters[$countLetters - 1], $arrayOfLetters[$countLetters - 2]);
-
-		return implode($arrayOfLetters);
-	}
-
 }
