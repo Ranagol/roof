@@ -70,38 +70,40 @@ class User extends Authenticatable
     /**
      * starredAds will return all ads that are starred by the user. In db, if an ad is starred,
      * then its value in the pivot dismissed column is false.
+     * So here we are returning all ads from ads table, that have false in the dissmissed 
+     * column in the ad_user pivot table.
      *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function starredAds()
     {
-        //returning all ads from ads table, that have false in the dissmissed column in the ad_user pivot table
         return $this->allStarredAndDismissedAds()->wherePivot('dismissed', '=', false);
     }
 
     /**
      * dismissedAds will return all ads that are dismissed by the user. In db, if an ad is dismissed,
      * then its value in the pivot dismissed column is true.
+     * returning all ads from ads table, that have true in the dissmissed column in the ad_user pivot table.
      *
      * @return mixed
      */
     public function dismissedAds()
     {
-        //returning all ads from ads table, that have true in the dissmissed column in the ad_user pivot table
         return $this->allStarredAndDismissedAds()->wherePivot('dismissed', '=', true);
     }
 
     /**
      * notProcessedAds will return all the ads, that are not dismissed or starred by th user.
+     * The steps for this are: 
+     * get all dismissed ad ids.
+     * return all ads (so not just the ads that are belonging to the user, but all
+     * return all ads from the db, except the ones that were starred or dismissed by the current user
      *
      * @return mixed
      */
     public function notProcessedAds()
     {
-        //get all dismissed ad ids
         $allStarredAndDismissedAdIds = $this->allStarredAndDismissedAds()->get(['id'])->pluck('id');
-        //here we return all ads (so not just the ads that are belonging to the user, but all
-        // return all ads from the db, except the ones that were starred or dismissed by the current user
         return Ad::whereNotIn('id', $allStarredAndDismissedAdIds);//->get() is missing here, put it there later!
     }
 

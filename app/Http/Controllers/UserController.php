@@ -2,44 +2,24 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Ad;
 use Illuminate\Support\Facades\Auth;
+use App\Repository\Interfaces\UserRepositoryInterface;
 
 
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Will store the UserRepository object, in accordance with the repository pattern.
      *
-     * @return \Illuminate\Http\Response
+     * @var UserRepository $repository
      */
-    public function index()
-    {
-        //
-    }
+    private $repository;
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function __construct(UserRepositoryInterface $repository) {
+        $this->repository = $repository;
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
+    
     /**
      * Display the specified resource.
      *
@@ -58,8 +38,13 @@ class UserController extends Controller
 					->notProcessedAds($user)
 					->getCountForFilter($filter);
 			}
-            $dismissedAds = $user->dismissedAds->count();
-            $starredAds = $user->starredAds->count();
+            //THE OLD FUNCTION, REPLACED BY REPOSITORY PATTERN
+            // $dismissedAds = $user->dismissedAds->count();
+            // $starredAds = $user->starredAds->count();
+            //NEW REPOSITORY PATTERN FUNCTIONS
+            $dismissedAds = $this->repository->dismissedAds($user)->count();
+            $starredAds = $this->repository->starredAds($user)->count();
+
             $userData = [
                 'name' => $user->name,
                 'email' => $user->email,
@@ -82,39 +67,5 @@ class UserController extends Controller
                 'userData',
 			)
 		);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }
