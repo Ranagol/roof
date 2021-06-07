@@ -184,7 +184,7 @@
 				>
 					<div>Please correct the following error(s):</div>
 					<ul>
-						<li v-for="error in errors">
+						<li v-for="(error, i) in errors" :key="i">
 							{{ error }}
 						</li>
 					</ul>

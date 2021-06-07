@@ -190,22 +190,6 @@ class Ad extends Model
 			});
 	}
 
-
-	public function scopeFilter2(Builder $query, Filter $filter){
-		
-		foreach ($filter as $filterKey => $filterValue) {
-			query->where('$filterKey', 'LIKE', '%' . $filterValue . '%');
-		}
-
-		return $query;
-		
-		
-	}
-
-	
-
-
-
 	/**
 	 * ScopeFilterByFilterId will find the users saved ad list with the help of the filter / ad list id number.
 	 *
