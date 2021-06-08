@@ -11,7 +11,7 @@
                         <div class="breadcrumb-content d-flex flex-wrap align-items-center justify-content-between">
                             <div class="section-heading">
                                 <h2 class="sec__title text-white font-size-40 mb-0 mt-5 pt-5 header-width">
-                                    <span v-if="savedFilter !== null">Ads from {{ savedFilter.name }} list</span>
+                                    <span v-if="savedFilter !== null">{{ savedFilter.name }}</span>
                                 </h2>
                             </div>
                         </div><!-- end breadcrumb-content -->

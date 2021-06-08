@@ -18,7 +18,8 @@
 			</el-tooltip>
 		</div>
 		<div>
-			<a :href="`ad-list/non-processed/${ filter.id }`">
+			<!-- <a :href="`ad-list/non-processed/${ filter.id }`"> -->
+			<a :href="this.currentUrl">
 				<div class="cat-content">
 					<h6 class="text-white mb-4">{{ filter.name }}</h6>
 				</div>
@@ -75,8 +76,34 @@ export default {
 						message: 'Delete canceled'
 					});
 				});
+		},
+		cleanFilter(temporaryObject){
+			delete temporaryObject.created_at;
+			delete temporaryObject.id;
+			delete temporaryObject.updated_at;
+			delete temporaryObject.user_id;
+
+			return temporaryObject;
 		}
-	}
+	},
+	computed: {
+		currentUrl() {
+			let url = '/ad-list/non-processed?';
+
+			const filterCopy = {...this.filter};
+			const filterCopyCleaned = this.cleanFilter(filterCopy);
+			console.log('filter object from HomeAdListVue:', filterCopyCleaned);
+
+			_.forEach(filterCopyCleaned, (filterValue, filterKey) => {
+				// if (_.isEmpty(filterValue) === false) {
+				if (filterValue !== null) {
+					url += `${filterKey}=${filterValue}&`;
+				}
+			});
+
+			return url;
+		}
+	},
 };
 </script>
 
