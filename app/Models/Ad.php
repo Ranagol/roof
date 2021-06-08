@@ -140,6 +140,28 @@ class Ad extends Model
 	 */
 	public function scopeFilter(Builder $query, Filter $filter)
 	{
+		//A Losi template how to solve the refactorization of the scopeFilter
+		// foreach ($filter as $field => $value) {
+		// 	switch ($field) {
+		// 		case str_contains($field, 'min_'):
+		// 			$column = strend('min_');
+		// 			$value = $value;
+		// 			$operator = '>=';
+		// 			break;
+		// 		case str_contains($field, 'max_'):
+		// 			$column = strend('min_');
+		// 			$value = $value;
+		// 			$operator = '=<';
+		// 			break;
+		// 		default:
+		// 			$value = '%' . $value '%';
+		// 			$operator = 'LIKE';
+		// 			break;
+		// 	}
+
+		// 	$query = $query->where($column, $operateor, $value);
+		// }
+	
 		return $query->when(
 			$filter->city, function ($query, $city) {
 			return $query->where('city', 'LIKE', '%' . $city . '%');
