@@ -29,6 +29,8 @@ abstract class AbstractAdController extends Controller
 	 */
 	protected $relationshipForAds;
 
+	protected $savedFilterId;
+
 	/**
 	 * Returns filtered, sorted, paginated ads.
 	 * It does in several steps. First it gets all search params from the request, creates a filter from it
@@ -47,39 +49,30 @@ abstract class AbstractAdController extends Controller
 	 */
 	public function index(Request $request, $savedFilterId = null)
 	{
-		$ads = new Ad();
-		$relationship = $this->relationshipForAds;
+		$this->savedFilterId = $savedFilterId;//ezt ignorald... ez nem lesz
+		$filter = $this->createFilter($request);
+		$ads = $this->getAds();
+		$ads = $this->filterSortPaginateAds($request, $ads, $filter);
 
-		//FILTERING THE ADS
-		$filter = new Filter($request->all());
-		$filter = $this->deCapitalizeCityAndLocation($request, $filter);
-		unset($filter['name'], $filter['created_at'], $filter['updated_at']);
+		return $this->returnResponse($request, $ads, $filter);
+	}
 
-		if (Auth::user()) {
-			$ads = $ads->$relationship(Auth::user());
-
-			if ($savedFilterId !== null) {
-				$filter = Auth::user()
-				->filters()
-					->where('id', '=', $savedFilterId)
-					->first();
-			}
-		}
-
-		//0-GETTING THE ADS FOR THE RESPONSE
-		$sortByThis = $request->sortByThis;
-		$ads = $ads->filter($filter)
-		->orderAds($sortByThis)
-		->paginate(10);
-
-		//1-json response for Vue components
+	private function returnResponse(Request $request, $ads, Filter $filter)
+	{
 		if ($request->expectsJson() === true) {
-			return response()->json($ads);
+
+			return $this->returnResponseForVueComponents($ads);
 		}
 
+		return $this->returnResponseForBlade($filter, $ads);
+	}
+
+	private function returnResponseForBlade(Filter $filter, $ads)
+	{
 		//2-standard response for blades,
 		$adTypeForUrl = $this->adTypeForUrl;
 		$filter = $filter->toArray();
+		$savedFilterId = $this->savedFilterId;
 
 		return view('ads.adList.adList',
 			compact(
@@ -89,7 +82,34 @@ abstract class AbstractAdController extends Controller
 				'filter',
 			)
 		);
+	}
 
+	private function returnResponseForVueComponents($ads)
+	{
+		return response()->json($ads);
+	}
+
+	private function filterSortPaginateAds(Request $request, $ads, Filter $filter)
+	{
+		//0-Filter, sort, paginate ads.
+		$sortByThis = $request->sortByThis;
+		$ads = $ads->filter($filter)
+		->orderAds($sortByThis)
+		->paginate(10);
+
+		return $ads;
+	}
+
+	private function getAds()
+	{
+		//Get S, NP, D ads for the given user
+		$ads = new Ad();
+		$relationship = $this->relationshipForAds;
+		if (Auth::user()) {
+			$ads = $ads->$relationship(Auth::user());
+		}
+
+		return $ads;
 	}
 
 	/**
@@ -110,6 +130,26 @@ abstract class AbstractAdController extends Controller
 		if(isset($request->location_in_city)) {
 			$filter->location_in_city =  mb_strtolower($request->location_in_city);
 		}
+
+		return $filter;
+	}
+
+	private function createFilter(Request $request)
+	{
+		// print_r($this->savedFilterId); die;
+		if ($this->savedFilterId !== null) {
+			$filter = Auth::user()
+			->filters()
+				->where('id', '=', $this->savedFilterId)
+				->first();
+		} else {
+			$filter = new Filter($request->all());
+			
+		}
+		$filter = $this->deCapitalizeCityAndLocation($request, $filter);
+		// var_dump($filter->toArray()); die;
+		
+		unset($filter['created_at'], $filter['updated_at']);
 
 		return $filter;
 	}
